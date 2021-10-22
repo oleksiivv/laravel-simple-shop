@@ -131,6 +131,7 @@
                     </div>
                 </div>
             </div>
+        </hr>
         </div>
     </body>
 </html>
