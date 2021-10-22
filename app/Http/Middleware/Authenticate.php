@@ -27,8 +27,14 @@ class Authenticate extends Middleware
     */
      protected function redirectTo($request)
      {
+         if(!Auth::check() ){
+             Auth::logout();
+             $request->session()->invalidate();
+             $request->session()->regenerateToken();
+             return route('login');
+         }
          if (! $request->expectsJson()) {
-             return 'login';
+             return route('login');
          }
      }   
 

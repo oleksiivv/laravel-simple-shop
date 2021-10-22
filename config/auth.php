@@ -68,6 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
