@@ -21,15 +21,35 @@
         </style>
     </head>
     <body>
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            <h1>Add new product</h1>
-            <form action="{{ route('add-new-product') }}" method="POST">
+        <div class="g-gray-100 dark:bg-gray-900">
+            <h1>Add new category</h1>
+            </br>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
-                <input type="text" name="name" value="Name: " />
-                <input type="text" name="description" value="Description: " />
-                <input type="text" name="image" value="Image: " />
-                <input type="text" name="price" value="Price: " />
-                <input type="submit" class="btn btn-danger" value="Send"/>
+            </form>
+        </br>
+            <form action="{{ route('add-new-category') }}" method="POST" style="background-color:black; color:white;">
+                @csrf
+                <input type="text" name="name" placeholder="Name: " /></br>
+                <input type="text" name="description" placeholder="Description: " /></br>
+                <input type="text" name="image" placeholder="Image: " /></br>
+                <input type="submit" value="Send"/></br>
+            </form>
+            </br>
+            <h1>Add new product</h1>
+            </br>
+            <form action="{{ route('add-new-product') }}" method="POST" style="background-color:black; color:white;">
+                @csrf
+                <input type="text" name="name" placeholder="Name: " /></br>
+                <input type="text" name="description" placeholder="Description: " /></br>
+                <input type="text" name="image" placeholder="Image: " /></br>
+                <input type="text" name="price" placeholder="Price: " /></br>
+                <input type="submit" value="Send"/></br>
             </form>
         </div>
     </body>
