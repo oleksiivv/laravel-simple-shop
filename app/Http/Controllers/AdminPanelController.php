@@ -32,4 +32,18 @@ class AdminPanelController extends Controller
         return redirect()->route('shop');
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function addNewCategory(Request $request){
+        $newItem = Category::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'image' => $request->input('image'),
+        ]);
+
+        return redirect()->route('shop');
+    }
+
 }
