@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +30,21 @@ Route::prefix('info')->group(function(){
 
 Route::prefix('shop')->group(function(){
     Route::get('/', [ShopController::class, 'home'])->name('shop');
-    Route::get('/{id}', [ShopController::class, 'singleItem'])->whereNumber('id')->name('singleItem');
+    Route::get('/categories/{category_id}', [ShopController::class, 'singleCategory'])->whereNumber('category_id')->name('singleCategory');
+    Route::get('/categories/{category_id}/{product_id}', [ShopController::class, 'singleItem'])->whereNumber('product_id')->whereNumber('category_id')->name('singleItem');
 });
+
+Route::prefix('admin')->group(function(){
+    Route::get('/', [AdminPanelController::class, 'main'])->name('admin-panel')->middleware('auth:admin');
+    Route::post('/add-new-product', [AdminPanelController::class, 'addNewProduct'])->name('add-new-product')->middleware('auth:admin');
+    Route::post('/add-new-category', [AdminPanelController::class, 'addNewCategory'])->name('add-new-category')->middleware('auth:admin');
+});
+
+Auth::routes();
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm'])->name('login.admin');
+Route::get('/register/admin', [RegisterController::class, 'showAdminRegisterForm']);
+Route::post('/login/admin', [LoginController::class, 'adminLogin']);
+Route::post('/register/admin', [RegisterController::class, 'createAdmin']);
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
